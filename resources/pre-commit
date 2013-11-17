@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# check for any PEP8 style violations
+FILES=$(git diff --cached --name-status | grep -v ^D | awk '$1 $2 { print $2}' | grep -e .py$)
+if [ -n "$FILES" ]; then
+    flake8 $FILES
+fi
+
+# run unit tests
+python -m unittest discover tests
